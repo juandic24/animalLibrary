@@ -60,7 +60,7 @@ The API is based on a relational database with the following entities:
 - PostgreSQL integration
 - Async programming
 - EntityFrameworkCore
-- 
+
 
 ---
 
