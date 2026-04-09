@@ -1,0 +1,41 @@
+@AnimalLibrary_HostAddress = http://localhost:5251
+
+GET {{AnimalLibrary_HostAddress}}/api/animals/
+
+###
+
+GET {{AnimalLibrary_HostAddress}}/api/animals/1
+
+###
+
+POST {{AnimalLibrary_HostAddress}}/api/animals/
+Content-Type: application/json
+
+{
+  "name": "Elephant",
+  "scientificName": "Loxodonta africana",
+  "description": "The largest land animal",
+  "imageUrl": "https://example.com/elephant.jpg",
+  "groupId": 6,
+  "habitatId": 2
+}
+
+###
+
+PUT {{AnimalLibrary_HostAddress}}/api/animals/1
+Content-Type: application/json
+
+{
+  "name": "Elephant2",
+  "scientificName": "Loxodonta africana",
+  "description": "The largest land animal",
+  "imageUrl": "https://example.com/elephant.jpg",
+  "groupId": 6,
+  "habitatId": 2
+}
+
+###
+
+DELETE {{AnimalLibrary_HostAddress}}/api/animals/1
+
+
