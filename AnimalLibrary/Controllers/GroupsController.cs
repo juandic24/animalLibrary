@@ -45,7 +45,7 @@ namespace AnimalLibrary.Controllers
 
         [HttpPut("{id}")] //PUT api/groups/1
 
-        public async Task<IActionResult> Update(int id, CreateGroupDTO updatedGroupDTO)
+        public async Task<IActionResult> Update(int id, UpdateGroupDTO updatedGroupDTO)
         {
             var updated = await _groupService.UpdateAsync(id, updatedGroupDTO);
             if(!updated) return NotFound();

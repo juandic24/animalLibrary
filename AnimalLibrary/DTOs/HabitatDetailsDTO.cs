@@ -1,6 +1,6 @@
 ﻿namespace AnimalLibrary.DTOs
 {
-    public record HabitatDTO
+    public record HabitatDetailsDTO
     (
         int Id,
         string Name

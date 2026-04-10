@@ -40,7 +40,7 @@ namespace AnimalLibrary.Controllers
         }
 
         [HttpPut("{id}")] // PUT api/animals/1
-        public async Task<IActionResult> Update(int id, CreateAnimalDTO updatedAnimalDTO)
+        public async Task<IActionResult> Update(int id, UpdateAnimalDTO updatedAnimalDTO)
         {
             var updated = await _animalService.UpdateAsync(id, updatedAnimalDTO);
             if(!updated) return NotFound();

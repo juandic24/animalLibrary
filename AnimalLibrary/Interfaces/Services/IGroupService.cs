@@ -10,7 +10,7 @@ namespace AnimalLibrary.Interfaces.Services
 
         Task<int> AddAsync(CreateGroupDTO createdGroupDto);
 
-        Task<bool> UpdateAsync(int id, CreateGroupDTO updatedGroupDto);
+        Task<bool> UpdateAsync(int id, UpdateGroupDTO updatedGroupDto);
 
         Task<bool> DeleteAsync(int id);
 

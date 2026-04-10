@@ -35,6 +35,11 @@ builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 // DI: when someone asks for IAnimalService, give them AnimalService
 builder.Services.AddScoped<IGroupService, GroupService>();
 
+// DI: when someone asks for IAnimalRepository, give them AnimalRepository
+builder.Services.AddScoped<IHabitatRepository, HabitatRepository>();
+
+// DI: when someone asks for IAnimalService, give them AnimalService
+builder.Services.AddScoped<IHabitatService, HabitatService>();
 
 
 var app = builder.Build();

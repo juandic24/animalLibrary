@@ -1,14 +1,19 @@
-@AnimalLibrary_HostAddress = http://localhost:5251
+@AnimalLibrary_HostAddress = http://localhost:5251/api
 
-GET {{AnimalLibrary_HostAddress}}/api/animals/
 
-###
-
-GET {{AnimalLibrary_HostAddress}}/api/animals/1
+//GET ALL ANIMALS
+GET {{AnimalLibrary_HostAddress}}/animals/
 
 ###
 
-POST {{AnimalLibrary_HostAddress}}/api/animals/
+//GET ANIMAL BY ID
+GET {{AnimalLibrary_HostAddress}}/animals/1
+
+###
+
+
+//CREATE ANIMAL
+POST {{AnimalLibrary_HostAddress}}/animals/
 Content-Type: application/json
 
 {
@@ -22,7 +27,8 @@ Content-Type: application/json
 
 ###
 
-PUT {{AnimalLibrary_HostAddress}}/api/animals/1
+//UPDATE ANIMAL
+PUT {{AnimalLibrary_HostAddress}}/animals/1
 Content-Type: application/json
 
 {
@@ -36,6 +42,92 @@ Content-Type: application/json
 
 ###
 
-DELETE {{AnimalLibrary_HostAddress}}/api/animals/1
+//DELETE ANIMAL
+DELETE {{AnimalLibrary_HostAddress}}/animals/1
+
+###
+
+//GET ALL GROUPS
+GET {{AnimalLibrary_HostAddress}}/groups
+
+###
+
+//GET GROUP BY ID
+GET {{AnimalLibrary_HostAddress}}/groups/5
+
+###
+
+//CREATE GROUP 
+POST {{AnimalLibrary_HostAddress}}/groups
+Content-Type: application/json
+
+{
+  "name": "test"
+}
+
+###
+//UPDATE GROUP
+PUT {{AnimalLibrary_HostAddress}}/groups/8
+Content-Type: application/json
+
+{
+  "name": "test3"
+}
+
+###
+//DELETE GROUP
+DELETE {{AnimalLibrary_HostAddress}}/groups/7
+
+###
+
+//GET ANIMALS OF A GROUP
+GET {{AnimalLibrary_HostAddress}}/groups/6/animals
+
+###
+
+//GET HABITATS
+
+GET {{AnimalLibrary_HostAddress}}/habitats
+
+###
+
+//GET HABITAT BY ID
+
+GET {{AnimalLibrary_HostAddress}}/habitats/10
+
+###
+
+//CREATE HABITAT
+
+POST {{AnimalLibrary_HostAddress}}/habitats
+Content-type: application/json
+
+{
+  "name": "test"
+}
+
+###
+
+//UPDATE HABITAT
+
+PUT {{AnimalLibrary_HostAddress}}/habitats/1
+Content-type: application/json
+
+{
+  "name": "test2"
+}
+
+###
+
+//DELETE HABITAT
+
+DELETE {{AnimalLibrary_HostAddress}}/habitats/1
+
+###
+
+//GET ANIMALS OF A HABITAT
+
+GET {{AnimalLibrary_HostAddress}}/habitats/1/animals
+
 
 

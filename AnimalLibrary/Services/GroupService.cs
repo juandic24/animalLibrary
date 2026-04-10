@@ -59,7 +59,7 @@ namespace AnimalLibrary.Services
             );
         }
 
-        public async Task<bool> UpdateAsync(int id, CreateGroupDTO updatedGroupDto)
+        public async Task<bool> UpdateAsync(int id, UpdateGroupDTO updatedGroupDto)
         {
             var group = await _groupRepository.GetByIdAsync(id);
             if (group is null) return false;

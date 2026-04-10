@@ -65,7 +65,7 @@ namespace AnimalLibrary.Services
             
         
 
-        public async Task<bool> UpdateAsync(int id, CreateAnimalDTO updatedAnimalDto)
+        public async Task<bool> UpdateAsync(int id, UpdateAnimalDTO updatedAnimalDto)
         {
             var animal = await _animalRepository.GetByIdAsync(id);
             if (animal is null) return false; //no lo encontró
