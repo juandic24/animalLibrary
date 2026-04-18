@@ -3,10 +3,6 @@ using AnimalLibrary.Interfaces.Repositories;
 using AnimalLibrary.Interfaces.Services;
 using AnimalLibrary.Repositories;
 using AnimalLibrary.Services;
-using Microsoft.AspNetCore.Connections;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,20 +19,22 @@ builder.Services.AddSwaggerGen();
 //Adding db context reference
 builder.AddAnimalLibraryDB();
 
+builder.Services.AddScoped(
+    typeof(IRepository<>),
+    typeof(EfRepository<>));
+
+
+
 // DI: when someone asks for IAnimalRepository, give them AnimalRepository
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 
 // DI: when someone asks for IAnimalService, give them AnimalService
 builder.Services.AddScoped<IAnimalService, AnimalService>();
 
-// DI: when someone asks for IAnimalRepository, give them AnimalRepository
-builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 
 // DI: when someone asks for IAnimalService, give them AnimalService
 builder.Services.AddScoped<IGroupService, GroupService>();
 
-// DI: when someone asks for IAnimalRepository, give them AnimalRepository
-builder.Services.AddScoped<IHabitatRepository, HabitatRepository>();
 
 // DI: when someone asks for IAnimalService, give them AnimalService
 builder.Services.AddScoped<IHabitatService, HabitatService>();

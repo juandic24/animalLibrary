@@ -1,4 +1,5 @@
-﻿using AnimalLibrary.Models;
+﻿using AnimalLibrary.Interfaces.Models;
+using AnimalLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 
 

@@ -5,76 +5,47 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnimalLibrary.Repositories
 {
-    public class AnimalRepository : IAnimalRepository
+    public class AnimalRepository : EfRepository<Animal>, IAnimalRepository
 
     {
-        // The DbContext is injected 
-        private readonly AnimalLibraryContext _context;
 
-        public AnimalRepository(AnimalLibraryContext context)
+        public AnimalRepository(AnimalLibraryContext context) : base(context) {}
+
+        public new async Task<IEnumerable<Animal>> GetAllAsync(CancellationToken ct = default)
         {
-            _context = context;
+            return await _set.AsNoTracking()
+                             .Where(e => !e.IsDeleted)
+                             .Include(e => e.Habitat)
+                             .Include(e => e.Group)
+                             .ToListAsync(ct);
         }
 
-        public async Task<IEnumerable<Animal>> GetAllAsync()
+        public new async Task<Animal?> GetByIdAsync(int id, CancellationToken ct = default)
         {
-            return await _context.Animals
-                .Include(a => a.Group)
-                .Include(a => a.Habitat)
-                .AsNoTracking() // not need to track only reead
-                .ToListAsync();
+            return await _set.AsNoTracking()
+                             .Include(e => e.Habitat)
+                             .Include(e => e.Group)
+                             .FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted, ct);
         }
 
-        public async Task<Animal?> GetByIdAsync(int id)
-        {
-            return await _context.Animals
-                .Include(a => a.Group)
-                .Include(a => a.Habitat)
-                .AsNoTracking() // not need to track
-                .FirstOrDefaultAsync(a => a.Id == id);
-            // FirstOrDefaultAsync returns null if nothing matches
-        }
 
-        public async Task AddAsync(Animal animal)
+        public async Task<IEnumerable<Animal>> GetByGroupIdAsync(int groupId, CancellationToken ct = default)
         {
-            _context.Animals.Add(animal);
-            await _context.SaveChangesAsync();
-            // SaveChangesAsync commits the transaction to the database
-        }
-
-        public async Task UpdateAsync(Animal animal)
-        {
-            _context.Animals.Update(animal);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var animal = await GetByIdAsync(id);
-            if (animal is not null)
-            {
-                _context.Animals.Remove(animal);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        public async Task<IEnumerable<Animal>> GetByGroupIdAsync(int groupId)
-        {
-            return await _context.Animals
+            return await _set
                 .Where(a => a.GroupId == groupId)
                 .Include(a => a.Group)
                 .Include(a => a.Habitat)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(ct);
         }
-        public async Task<IEnumerable<Animal>> GetByHabitatIdAsync(int habitatId)
+        public async Task<IEnumerable<Animal>> GetByHabitatIdAsync(int habitatId, CancellationToken ct = default)
         {
-            return await _context.Animals
+            return await _set
                 .Where(a => a.HabitatId == habitatId)
                 .Include(a => a.Group)
                 .Include(a => a.Habitat)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(ct);
         }
 
 

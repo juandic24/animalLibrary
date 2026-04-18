@@ -1,10 +1,19 @@
-﻿namespace AnimalLibrary.Models
+﻿
+
+using AnimalLibrary.Interfaces.Models;
+
+namespace AnimalLibrary.Models
 {
-    public class Group : INamedEntity
+    public class Group : IEntity, INamedEntity, ISoftDeletable, IAuditable
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
-        public ICollection<Animal>? Animals { get; set; } = [];
 
+        public required string Name { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
+
+        public ICollection<Animal>? Animals { get; set; } = [];
     }
 }

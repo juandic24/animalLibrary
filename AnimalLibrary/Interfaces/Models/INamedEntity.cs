@@ -1,4 +1,4 @@
-﻿namespace AnimalLibrary.Models
+﻿namespace AnimalLibrary.Interfaces.Models
 {
     public interface INamedEntity
     {

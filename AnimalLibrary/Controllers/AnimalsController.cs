@@ -17,14 +17,14 @@ namespace AnimalLibrary.Controllers
         }
 
         [HttpGet] //get api/animals
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken ct)
         {
             var animals = await _animalService.GetAllAsync();
             return Ok(animals);
         }
 
         [HttpGet("{id}")] //get api/animals/1
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
             var animal = await _animalService.GetByIdAsync(id);
             if (animal is null) return NotFound();
@@ -32,7 +32,7 @@ namespace AnimalLibrary.Controllers
         }
 
         [HttpPost] // POST api/animals
-        public async Task<IActionResult> Create(CreateAnimalDTO createdAnimalDTO)
+        public async Task<IActionResult> Create(CreateAnimalDTO createdAnimalDTO, CancellationToken ct)
         {
             var newId = await _animalService.AddAsync(createdAnimalDTO);
             var animal = await _animalService.GetByIdAsync(newId);
@@ -40,7 +40,7 @@ namespace AnimalLibrary.Controllers
         }
 
         [HttpPut("{id}")] // PUT api/animals/1
-        public async Task<IActionResult> Update(int id, UpdateAnimalDTO updatedAnimalDTO)
+        public async Task<IActionResult> Update(int id, UpdateAnimalDTO updatedAnimalDTO, CancellationToken ct)
         {
             var updated = await _animalService.UpdateAsync(id, updatedAnimalDTO);
             if(!updated) return NotFound();
@@ -48,7 +48,7 @@ namespace AnimalLibrary.Controllers
         }
 
         [HttpDelete("{id}")] // DELETE api/animals/1
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken ct)
         {
             var deleted = await _animalService.DeleteAsync(id);
             if(!deleted) return NotFound();

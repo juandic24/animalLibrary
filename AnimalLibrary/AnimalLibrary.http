@@ -93,7 +93,7 @@ GET {{AnimalLibrary_HostAddress}}/habitats
 
 //GET HABITAT BY ID
 
-GET {{AnimalLibrary_HostAddress}}/habitats/10
+GET {{AnimalLibrary_HostAddress}}/habitats/1
 
 ###
 
@@ -110,7 +110,7 @@ Content-type: application/json
 
 //UPDATE HABITAT
 
-PUT {{AnimalLibrary_HostAddress}}/habitats/1
+PUT {{AnimalLibrary_HostAddress}}/habitats/6
 Content-type: application/json
 
 {
@@ -121,13 +121,13 @@ Content-type: application/json
 
 //DELETE HABITAT
 
-DELETE {{AnimalLibrary_HostAddress}}/habitats/1
+DELETE {{AnimalLibrary_HostAddress}}/habitats/6
 
 ###
 
 //GET ANIMALS OF A HABITAT
 
-GET {{AnimalLibrary_HostAddress}}/habitats/1/animals
+GET {{AnimalLibrary_HostAddress}}/habitats/2/animals
 
 
 

@@ -1,4 +1,5 @@
-﻿using AnimalLibrary.Models;
+﻿using AnimalLibrary.Interfaces.Models;
+using AnimalLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnimalLibrary.Data
@@ -24,6 +25,39 @@ namespace AnimalLibrary.Data
                 .WithMany(h => h.Animals)
                 .HasForeignKey(a => a.HabitatId);
 
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            ApplyAuditInfo(); 
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            ApplyAuditInfo();
+
+            return base.SaveChanges();
+        }
+
+        private void ApplyAuditInfo()
+        {
+            var entries = ChangeTracker.Entries<IAuditable>();
+
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = DateTimeOffset.UtcNow;
+                    entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
+                }
+            }
         }
 
 

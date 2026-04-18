@@ -19,7 +19,7 @@ namespace AnimalLibrary.Controllers
         }
 
         [HttpGet] // get api/groups
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken ct)
         {
             var groups = await _groupService.GetAllAsync();
             return Ok(groups);
@@ -27,7 +27,7 @@ namespace AnimalLibrary.Controllers
 
         [HttpGet("{id}")] //get api/groups/1
 
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
             var group = await _groupService.GetByIdAsync(id);
             if (group is null) return NotFound();
@@ -36,7 +36,7 @@ namespace AnimalLibrary.Controllers
 
         [HttpPost] // POST api/groups
 
-        public async Task<IActionResult> Create(CreateGroupDTO createdGroupDTO)
+        public async Task<IActionResult> Create(CreateGroupDTO createdGroupDTO, CancellationToken ct)
         {
             var newId = await _groupService.AddAsync(createdGroupDTO);
             var group = await _groupService.GetByIdAsync(newId);
@@ -45,7 +45,7 @@ namespace AnimalLibrary.Controllers
 
         [HttpPut("{id}")] //PUT api/groups/1
 
-        public async Task<IActionResult> Update(int id, UpdateGroupDTO updatedGroupDTO)
+        public async Task<IActionResult> Update(int id, UpdateGroupDTO updatedGroupDTO, CancellationToken ct)
         {
             var updated = await _groupService.UpdateAsync(id, updatedGroupDTO);
             if(!updated) return NotFound();
@@ -54,7 +54,7 @@ namespace AnimalLibrary.Controllers
 
         [HttpDelete("{id}")] // DELETE api/groups/1
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken ct)
         {
             var deleted = await _groupService.DeleteAsync(id);
             if(!deleted) return NotFound();
@@ -62,7 +62,7 @@ namespace AnimalLibrary.Controllers
         }
 
         [HttpGet("{id}/animals")] // GET api/groups/1/animals
-        public async Task<IActionResult> GetAnimalsByGroupId(int id)
+        public async Task<IActionResult> GetAnimalsByGroupId(int id, CancellationToken ct)
         {
             var animals = await _animalService.GetByGroupIdAsync(id);
             return Ok(animals);

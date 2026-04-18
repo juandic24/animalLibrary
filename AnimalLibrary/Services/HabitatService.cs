@@ -7,15 +7,15 @@ namespace AnimalLibrary.Services
 {
     public class HabitatService : IHabitatService
     {
-        private readonly IHabitatRepository _habitatRepository;
-        public HabitatService(IHabitatRepository habitatRepository)
+        private readonly IRepository<Habitat> _repository;
+        public HabitatService(IRepository<Habitat> habitatRepository)
         {
-            _habitatRepository = habitatRepository;
+            _repository = habitatRepository;
         }
 
-        public async Task<IEnumerable<HabitatDetailsDTO>> GetAllAsync()
+        public async Task<IEnumerable<HabitatDetailsDTO>> GetAllAsync(CancellationToken ct = default)
         {
-            var habitats = await _habitatRepository.GetAllAsync();
+            var habitats = await _repository.GetAllAsync(ct);
             return habitats.Select(h => new HabitatDetailsDTO
             (
                 h.Id,
@@ -23,9 +23,9 @@ namespace AnimalLibrary.Services
             ));
         }
 
-        public async Task<HabitatDetailsDTO?> GetByIdAsync(int id)
+        public async Task<HabitatDetailsDTO?> GetByIdAsync(int id, CancellationToken ct = default)
         {
-            var habitat = await _habitatRepository.GetByIdAsync(id);
+            var habitat = await _repository.GetByIdAsync(id, ct);
             if (habitat is null) return null;
             return new HabitatDetailsDTO
             (
@@ -34,30 +34,30 @@ namespace AnimalLibrary.Services
             );
         }
 
-        public async Task<int> AddAsync (CreateHabitatDTO createdHabitatDto)
+        public async Task<int> AddAsync (CreateHabitatDTO createdHabitatDto, CancellationToken ct = default)
         {
             Habitat habitat = new Habitat
             {
                 Name = createdHabitatDto.Name
             };
-            await _habitatRepository.AddAsync(habitat);
+            await _repository.AddAsync(habitat, ct);
             return habitat.Id;
         }
 
-        public async Task<bool> UpdateAsync (int id, UpdateHabitatDTO updatedHabitatDto)
+        public async Task<bool> UpdateAsync (int id, UpdateHabitatDTO updatedHabitatDto, CancellationToken ct = default)
         {
-            var habitat = await _habitatRepository.GetByIdAsync(id);
+            var habitat = await _repository.GetByIdAsync(id, ct);
             if (habitat is null) return false;
             habitat.Name = updatedHabitatDto.Name;
-            await _habitatRepository.UpdateAsync(habitat);
+            await _repository.UpdateAsync(habitat, ct);
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id, CancellationToken ct = default)
         {
-            var habitat = await _habitatRepository.GetByIdAsync(id);
+            var habitat = await _repository.GetByIdAsync(id, ct);
             if (habitat is null) return false;
-            await _habitatRepository.DeleteAsync(id);
+            await _repository.DeleteAsync(id, ct);
             return true;
         }
     }

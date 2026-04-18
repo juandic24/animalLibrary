@@ -1,11 +1,19 @@
-﻿using System.Text.RegularExpressions;
+﻿using AnimalLibrary.Interfaces.Models;
+using System.Text.RegularExpressions;
 
 namespace AnimalLibrary.Models
 {
-    public class Animal
+    public class Animal : IEntity, INamedEntity, IAuditable, ISoftDeletable
     {
 
         public int Id { get; set; }
+
+        public DateTimeOffset CreatedAt { get; set; }
+
+        public DateTimeOffset UpdatedAt { get; set; }
+
+        public bool IsDeleted { get; set; }
+
         public required string Name { get; set; }
         public required string ScientificName { get; set; }
         public string? Description { get; set; }
